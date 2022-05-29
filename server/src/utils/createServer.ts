@@ -6,6 +6,8 @@ import { readFileSync } from "fs";
 import { join } from "path";
 import { cwd } from "process";
 import { CORS_ORIGIN } from "../constants";
+import getUserRoutes from "../modules/user/user.route";
+import getVaultRoutes from "../modules/vault/vault.route";
 
 const createServer = () => {
   const app = fastify({
@@ -63,6 +65,9 @@ const createServer = () => {
       }
     },
   );
+
+  app.register(getUserRoutes, { prefix: "api/users" });
+  app.register(getVaultRoutes, { prefix: "api/vault" });
 
   return app;
 };
