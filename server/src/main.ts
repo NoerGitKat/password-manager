@@ -1,15 +1,13 @@
 import { PORT } from "./constants";
-import { createServer } from "./utils";
+import { connectDB, createServer } from "./utils";
 
 const main = async () => {
   const app = createServer();
 
   try {
-    const url = await app.listen(PORT, "0.0.0.0");
-
-    console.log(`Server is running on port ${url}!`);
+    await app.listen(PORT, "0.0.0.0");
+    await connectDB(app);
   } catch (error) {
-    console.error(error);
     process.exit(1);
   }
 };
