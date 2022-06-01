@@ -29,5 +29,6 @@ export async function registerUser(
     return reply.code(201).send({ accessToken, vault: vault.data, salt });
   } catch (error) {
     console.error("Error!", error);
+    return reply.code(500).send({ error: error });
   }
 }

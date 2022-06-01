@@ -1,8 +1,11 @@
 import { UserModel } from "./user.model";
 
-export async function createUser(input: {
+export async function createUser({
+  hashedPassword,
+  email,
+}: {
   hashedPassword: string;
   email: string;
 }) {
-  return UserModel.create(input);
+  return UserModel.create({ password: hashedPassword, email });
 }
