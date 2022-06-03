@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoginForm from "../components/LoginForm";
 import RegisterForm from "../components/RegisterForm";
 import Vault from "../components/Vault";
@@ -14,9 +14,19 @@ export interface IVaultItem {
 export type TStep = "login" | "register" | "vault";
 
 const Home: NextPage = () => {
-  const [step, setStep] = useState<TStep>("register");
+  const [step, setStep] = useState<TStep>("login");
   const [vault, setVault] = useState<IVaultItem[]>([]);
   const [vaultKey, setVaultKey] = useState("");
+
+  useEffect(() => {
+    const vault = window.sessionStorage.getItem("vault");
+    const vaultKey = window.sessionStorage.getItem("vk");
+
+    if (vault) setVault(JSON.parse(vault));
+    if (vaultKey) setVaultKey(JSON.parse(vaultKey));
+
+    setStep("vault");
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -30,7 +40,7 @@ const Home: NextPage = () => {
           <RegisterForm setStep={setStep} setVaultKey={setVaultKey} />
         )}
         {step === "login" && <LoginForm />}
-        {step === "vault" && <Vault />}
+        {step === "vault" && <Vault vault={vault} vaultKey={vaultKey} />}
       </main>
     </div>
   );

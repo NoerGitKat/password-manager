@@ -1,6 +1,6 @@
 import { UserModel } from "./user.model";
 
-export async function createUser({
+export async function createUserService({
   hashedPassword,
   email,
 }: {

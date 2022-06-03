@@ -9,6 +9,12 @@ import { CORS_ORIGIN } from "../constants";
 import getUserRoutes from "../modules/user/user.route";
 import getVaultRoutes from "../modules/vault/vault.route";
 
+declare module "fastify" {
+  export interface FastifyInstance {
+    authenticate: any;
+  }
+}
+
 const createServer = () => {
   const app = fastify({
     logger: {

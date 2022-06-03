@@ -1,8 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { COOKIE_DOMAIN } from "../../constants";
 import { generateSalt } from "../../utils";
-import { createVault } from "../vault/vault.service";
-import { createUser } from "./user.service";
+import { createVaultService } from "../vault/vault.service";
+import { createUserService } from "./user.service";
 
 export async function registerUser(
   request: FastifyRequest<{ Body: Parameters<typeof createUser>[number] }>,
@@ -11,9 +11,9 @@ export async function registerUser(
   const { body } = request;
 
   try {
-    const user = await createUser(body);
+    const user = await createUserService(body);
     const salt = generateSalt();
-    const vault = await createVault({ user: user._id, salt });
+    const vault = await createVaultService({ user: user._id, salt });
     const accessToken = await reply.jwtSign({
       _id: user._id,
       email: user.email,

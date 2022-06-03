@@ -99,7 +99,9 @@ const RegisterForm: React.FunctionComponent<IRegisterFormProps> = ({
           {errors.password && errors.password.message}
         </FormErrorMessage>
       </FormControl>
-      <Button type="submit">Register</Button>
+      <Button type="submit" mt={4}>
+        Register
+      </Button>
     </FormLayout>
   );
 };
