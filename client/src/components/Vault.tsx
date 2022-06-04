@@ -29,9 +29,6 @@ const Vault: React.FunctionComponent<IVaultProps> = ({
 
   const mutation = useMutation(saveVault);
 
-  console.log("vault is", vault);
-  console.log("fields is", fields);
-
   return (
     <FormLayout
       onSubmit={handleSubmit(({ vault }) => {

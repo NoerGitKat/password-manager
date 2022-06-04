@@ -13,3 +13,7 @@ export function updateVaultService({
 }) {
   return VaultModel.updateOne({ user: userId }, { data });
 }
+
+export function findVaultByUserId(userId: string) {
+  return VaultModel.findOne({ user: userId });
+}

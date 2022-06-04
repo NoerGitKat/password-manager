@@ -8,7 +8,19 @@ export function registerUser(payload: {
   email: string;
 }) {
   return axios
-    .post<{ salt: string; vault: string }>(USERS_BASEURL, payload, {
+    .post<{ salt: string; vault: string }>(
+      `${USERS_BASEURL}/register`,
+      payload,
+      {
+        withCredentials: true,
+      },
+    )
+    .then((res) => res.data);
+}
+
+export function loginUser(payload: { hashedPassword: string; email: string }) {
+  return axios
+    .post<{ salt: string; vault: string }>(`${USERS_BASEURL}/login`, payload, {
       withCredentials: true,
     })
     .then((res) => res.data);

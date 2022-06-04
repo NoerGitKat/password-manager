@@ -43,7 +43,9 @@ const RegisterForm: React.FunctionComponent<IRegisterFormProps> = ({
       const hashedPassword = getValues("hashedPassword");
       const vaultKey = generateVaultKey({ email, hashedPassword, salt });
 
-      window.sessionStorage.setItem("vk", vaultKey);
+      setVaultKey(vaultKey);
+
+      window.sessionStorage.setItem("vk", JSON.stringify(vaultKey));
       window.sessionStorage.setItem("vault", "");
 
       setStep("vault");

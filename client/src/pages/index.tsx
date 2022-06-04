@@ -1,3 +1,4 @@
+import { Box, Button } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
@@ -23,9 +24,10 @@ const Home: NextPage = () => {
     const vaultKey = window.sessionStorage.getItem("vk");
 
     if (vault) setVault(JSON.parse(vault));
-    if (vaultKey) setVaultKey(JSON.parse(vaultKey));
-
-    setStep("vault");
+    if (vaultKey) {
+      setVaultKey(JSON.parse(vaultKey));
+      setStep("vault");
+    }
   }, []);
 
   return (
@@ -39,7 +41,26 @@ const Home: NextPage = () => {
         {step === "register" && (
           <RegisterForm setStep={setStep} setVaultKey={setVaultKey} />
         )}
-        {step === "login" && <LoginForm />}
+        {step === "login" && (
+          <LoginForm
+            setStep={setStep}
+            setVault={setVault}
+            setVaultKey={setVaultKey}
+          />
+        )}
+        {(step === "login" || step === "register") && (
+          <Box>
+            <Button
+              bg="none"
+              border="1px solid black"
+              color="black"
+              mt={10}
+              onClick={() => setStep(step === "login" ? "register" : "login")}
+            >
+              {step === "login" ? "Register" : "Login"}
+            </Button>
+          </Box>
+        )}
         {step === "vault" && <Vault vault={vault} vaultKey={vaultKey} />}
       </main>
     </div>
